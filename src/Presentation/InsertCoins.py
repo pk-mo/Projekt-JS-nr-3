@@ -2,6 +2,7 @@ import dearpygui.dearpygui as dpg
 
 from machine import get_transaction
 from src.Entity.Coin import *
+from . import SelectProduct
 
 
 def get_inserted_coins_to_text(coins: [Coin]):
@@ -44,22 +45,26 @@ def input_callback(coin: Coin):
     transaction = get_transaction()
     transaction.insert_coin(coin)
     dpg.set_value('inserted_coins_text', f'Inserted money: {transaction.get_inserted_money_amount() / 100} zl')
-
+    SelectProduct.buy()
 
 def withdraw():
+    dpg.set_value("withdrawn_coins", '')
     transaction = get_transaction()
     coins = transaction.withdraw_inserted_coins()
     dpg.set_value('inserted_coins_text', 'Insert coins')
-    dpg.set_value("withdrawn_coins", f'Returned coins: {get_inserted_coins_to_text(coins)}')
+    if coins:
+        dpg.set_value("withdrawn_coins", f'Returned coins: {get_inserted_coins_to_text(coins)}')
 
 
 def return_change(change: [Coin]):
     dpg.set_value('inserted_coins_text', 'Insert coins')
-    dpg.set_value("withdrawn_coins", f'Returned change: {get_inserted_coins_to_text(change)}')
-
+    if change:
+        dpg.set_value("withdrawn_coins", f'Returned change: {get_inserted_coins_to_text(change)}')
+    else:
+        dpg.set_value("withdrawn_coins", '')
 
 def render():
-    with dpg.window(label="Insert coins", width=500, height=400, pos=[500, 0], no_move=True, no_collapse=True,
+    with dpg.window(label="Insert coins", width=500, height=500, pos=[500, 0], no_move=True, no_collapse=True,
                     no_close=True, no_resize=True):
         dpg.add_text("Insert coins", tag="inserted_coins_text")
         dpg.add_text(tag="withdrawn_coins")

@@ -10,3 +10,9 @@ def get_machine():
 
 def get_transaction():
     return transaction
+
+
+def reset_machine():
+    global machine, transaction
+    machine = Machine()
+    transaction = machine.start()

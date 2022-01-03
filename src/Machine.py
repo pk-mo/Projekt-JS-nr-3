@@ -11,6 +11,8 @@ class Machine:
         self.transaction = Transaction(self.coin_storage, self.item_storage)
         return self.transaction
 
-    def get_product_data(self):
-        return {item_id: {"price": self.item_storage.get_item_price(item_id),
-                          "amount": self.item_storage.get_items_amount(item_id)} for item_id in self.item_storage.items}
+    def get_product_price(self, item_id: int):
+        return self.item_storage.get_item_price(item_id)
+
+    def get_product_amount(self, item_id: int):
+        return self.item_storage.get_items_amount(item_id)

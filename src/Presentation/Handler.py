@@ -1,8 +1,6 @@
-from . import SelectProduct, InsertCoins, Buy, Products
+from . import SelectProduct, InsertCoins
 
 
 def handle():
     SelectProduct.render()
     InsertCoins.render()
-    Buy.render()
-    Products.render()
