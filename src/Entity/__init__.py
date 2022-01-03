@@ -1,1 +1,1 @@
-__all__ = ['Coin', 'Item']
+__all__ = ['Coin', 'CoinStorage', 'ItemStorage']

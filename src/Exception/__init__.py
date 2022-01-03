@@ -1,1 +1,2 @@
-__all__ = ['InvalidCoinValueException', 'InvalidItemPriceException', 'InvalidItemIdException']
+__all__ = ['InvalidCoinValueException', 'InvalidItemIdException', 'TooSmallMoneyAmountException',
+           'NoItemInTheMachineException', 'OnlyCalculatedAmountException']

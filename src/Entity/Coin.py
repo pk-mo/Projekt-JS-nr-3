@@ -18,3 +18,6 @@ class Coin:
         """Validates Coin value."""
         if self.value not in get_valid_coin_values():
             raise InvalidCoinValueException()
+
+    def get_value(self):
+        return self.value
