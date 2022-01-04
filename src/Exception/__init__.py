@@ -1,2 +1,2 @@
 __all__ = ['InvalidCoinValueException', 'InvalidItemIdException', 'TooSmallMoneyAmountException',
-           'NoItemInTheMachineException', 'OnlyCalculatedAmountException']
+           'NoItemInTheMachineException', 'OnlyCalculatedAmountException', 'NotEnoughCoinsToWithdrawException']

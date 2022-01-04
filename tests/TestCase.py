@@ -1,8 +1,8 @@
 import unittest
-from unittest import mock
 
 from machine import reset_machine
 from src.Presentation import SelectProduct
+from tests.Utils import gui_mock
 
 
 class TestCase(unittest.TestCase):
@@ -10,7 +10,6 @@ class TestCase(unittest.TestCase):
         reset_machine()
 
     def tearDown(self) -> None:
-        with mock.patch('src.Presentation.SelectProduct.dpg'):
-            with mock.patch('src.Presentation.InsertCoins.dpg'):
-                SelectProduct.abort()
-                SelectProduct.clear()
+        with gui_mock():
+            SelectProduct.abort()
+            SelectProduct.clear_selected_product()

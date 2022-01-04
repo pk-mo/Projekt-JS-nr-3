@@ -2,16 +2,16 @@ import dearpygui.dearpygui as dpg
 
 from machine import get_transaction
 from src.Entity.Coin import *
+from . import Messages
 from . import SelectProduct
+from ..Utils import CoinUtils, PresentationUtils
 
 
-def get_inserted_coins_to_text(coins: [Coin]):
-    text = ''
-    for coin in coins:
-        if len(text) > 0:
-            text += ", "
-        text += f'{coin.get_value() / 100}zl'
-    return text
+def input_callback(coin: Coin):
+    transaction = get_transaction()
+    transaction.insert_coin(coin)
+    Messages.add_inserted_coins_message(f'Inserted money: {transaction.get_inserted_money_amount() / 100}zl')
+    SelectProduct.buy()
 
 
 def input_500_callback(): input_callback(Coin(500))
@@ -41,43 +41,41 @@ def input_2_callback(): input_callback(Coin(2))
 def input_1_callback(): input_callback(Coin(1))
 
 
-def input_callback(coin: Coin):
-    transaction = get_transaction()
-    transaction.insert_coin(coin)
-    dpg.set_value('inserted_coins_text', f'Inserted money: {transaction.get_inserted_money_amount() / 100} zl')
-    SelectProduct.buy()
-
 def withdraw():
-    dpg.set_value("withdrawn_coins", '')
+    Messages.reset_withdrawn_coins_message()
+    Messages.reset_inserted_coins_message()
     transaction = get_transaction()
     coins = transaction.withdraw_inserted_coins()
-    dpg.set_value('inserted_coins_text', 'Insert coins')
     if coins:
-        dpg.set_value("withdrawn_coins", f'Returned coins: {get_inserted_coins_to_text(coins)}')
+        Messages.add_withdrawn_coins_message(f'Returned coins: {CoinUtils.coins_to_string(coins)}')
 
 
 def return_change(change: [Coin]):
-    dpg.set_value('inserted_coins_text', 'Insert coins')
+    Messages.reset_inserted_coins_message()
     if change:
-        dpg.set_value("withdrawn_coins", f'Returned change: {get_inserted_coins_to_text(change)}')
+        Messages.add_withdrawn_coins_message(f'Returned change: {CoinUtils.coins_to_string(change)}')
     else:
-        dpg.set_value("withdrawn_coins", '')
+        Messages.reset_withdrawn_coins_message()
+
 
 def render():
     with dpg.window(label="Insert coins", width=500, height=500, pos=[500, 0], no_move=True, no_collapse=True,
                     no_close=True, no_resize=True):
-        dpg.add_text("Insert coins", tag="inserted_coins_text")
-        dpg.add_text(tag="withdrawn_coins")
+        Messages.render_coins_messages()
         dpg.add_spacer(height=20)
-        with dpg.group(horizontal=True, horizontal_spacing=10):
-            dpg.add_button(label='5zl', callback=input_500_callback, width=40, height=60)
-            dpg.add_button(label='2zl', callback=input_200_callback, width=40, height=60)
-            dpg.add_button(label='1zl', callback=input_100_callback, width=40, height=60)
-        with dpg.group(horizontal=True, horizontal_spacing=10):
-            dpg.add_button(label='50gr', callback=input_50_callback, width=40, height=60)
-            dpg.add_button(label='20gr', callback=input_20_callback, width=40, height=60)
-            dpg.add_button(label='10gr', callback=input_10_callback, width=40, height=60)
-        with dpg.group(horizontal=True, horizontal_spacing=10):
-            dpg.add_button(label='5gr', callback=input_5_callback, width=40, height=60)
-            dpg.add_button(label='2gr', callback=input_2_callback, width=40, height=60)
-            dpg.add_button(label='1gr', callback=input_1_callback, width=40, height=60)
+        __render_coins_input()
+
+
+def __render_coins_input():
+    with dpg.group(horizontal=True, horizontal_spacing=10):
+        PresentationUtils.render_button('5zl', input_500_callback)
+        PresentationUtils.render_button('2zl', input_200_callback)
+        PresentationUtils.render_button('1zl', input_100_callback)
+    with dpg.group(horizontal=True, horizontal_spacing=10):
+        PresentationUtils.render_button('50gr', input_50_callback)
+        PresentationUtils.render_button('20gr', input_20_callback)
+        PresentationUtils.render_button('10gr', input_10_callback)
+    with dpg.group(horizontal=True, horizontal_spacing=10):
+        PresentationUtils.render_button('5gr', input_5_callback)
+        PresentationUtils.render_button('2gr', input_2_callback)
+        PresentationUtils.render_button('1gr', input_1_callback)

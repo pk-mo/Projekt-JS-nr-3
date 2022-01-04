@@ -1,6 +1,6 @@
 from src.Entity import CoinStorage, ItemStorage, Coin
 from src.Exception import InvalidItemIdException, TooSmallMoneyAmountException, NoItemInTheMachineException, \
-    OnlyCalculatedAmountException
+    OnlyCalculatedAmountException, NotEnoughCoinsToWithdrawException
 
 
 class Transaction:
@@ -46,10 +46,11 @@ class Transaction:
         change_amount = self.get_inserted_money_amount() - selected_item_price
         to_withdraw = []
         if change_amount > 0:
-            change = self.coin_storage.withdraw(change_amount)
-            if change is None:
+            try:
+                change = self.coin_storage.withdraw(change_amount)
+                to_withdraw = change
+            except NotEnoughCoinsToWithdrawException.NotEnoughCoinsToWithdrawException:
                 raise OnlyCalculatedAmountException.OnlyCalculatedAmountException()
-            to_withdraw = change
 
         self.coin_storage.insert(self.inserted_coins)
         self.inserted_coins = []

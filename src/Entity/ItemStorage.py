@@ -3,11 +3,14 @@ import random
 
 class ItemStorage:
     def __init__(self):
-        self.prices = {key: random.randint(10, 1000) for key in range(30, 51)}
-        self.items = {key: 5 for key in range(30, 51)}
+        self.prices = self.__get_initial_prices_dictionary()
+        self.items = self.__get_initial_items_dictionary()
 
-    def add_item(self, item_id: int) -> None:
-        self.items[item_id] += 1
+    def __get_initial_prices_dictionary(self, min_key: int = 30, max_key: int = 50) -> {int, int}:
+        return {key: random.randint(10, 1000) for key in range(min_key, max_key + 1)}
+
+    def __get_initial_items_dictionary(self, min_key: int = 30, max_key: int = 50, default_item_amount: int = 5):
+        return {key: default_item_amount for key in range(min_key, max_key + 1)}
 
     def take_item(self, item_id: int) -> bool:
         if self.items[item_id] < 1:

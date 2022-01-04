@@ -1,1 +1,1 @@
-__all__ = ['Handler', 'SelectProduct', 'InsertCoins', 'Buy', 'Products']
+__all__ = ['Handler', 'SelectProduct', 'InsertCoins', 'Messages']
