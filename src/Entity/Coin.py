@@ -20,4 +20,5 @@ class Coin:
             raise InvalidCoinValueException()
 
     def get_value(self):
+        """Gets the coin value."""
         return self.value

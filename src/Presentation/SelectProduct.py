@@ -8,37 +8,8 @@ from src.Utils import PresentationUtils
 select_product_input = ''
 
 
-def input_1_callback(): input_callback('1')
-
-
-def input_2_callback(): input_callback('2')
-
-
-def input_3_callback(): input_callback('3')
-
-
-def input_4_callback(): input_callback('4')
-
-
-def input_5_callback(): input_callback('5')
-
-
-def input_6_callback(): input_callback('6')
-
-
-def input_7_callback(): input_callback('7')
-
-
-def input_8_callback(): input_callback('8')
-
-
-def input_9_callback(): input_callback('9')
-
-
-def input_0_callback(): input_callback('0')
-
-
 def input_callback(value: str):
+    """Callback handling selection of product."""
     global select_product_input
     select_product_input += value
     Messages.add_selected_product_message("Selected product: " + select_product_input)
@@ -46,6 +17,7 @@ def input_callback(value: str):
 
 
 def buy():
+    """Handles the purchase of product."""
     __clear_messages()
     machine = get_machine()
     transaction = get_transaction()
@@ -70,6 +42,7 @@ def buy():
 
 
 def abort():
+    """Aborts the transaction."""
     InsertCoins.withdraw()
     clear_selected_product()
     __clear_messages()
@@ -77,6 +50,7 @@ def abort():
 
 
 def __clear_messages():
+    """Clears the product and alert messages."""
     Messages.reset_product_price_message()
     Messages.reset_product_amount_message()
     Messages.reset_error_message()
@@ -84,12 +58,14 @@ def __clear_messages():
 
 
 def clear_selected_product():
+    """Clears the selected product."""
     global select_product_input
     select_product_input = ''
     Messages.reset_selected_product_message()
 
 
 def render():
+    """Renders interface of selecting product."""
     with dpg.window(label="Select products", width=500, height=500, pos=[0, 0], no_move=True, no_collapse=True,
                     no_close=True, no_resize=True):
         Messages.render_product_messages()
@@ -99,18 +75,19 @@ def render():
 
 
 def __render_product_input():
+    """Renders input buttons for product selection and aborting the transaction."""
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('1', input_1_callback)
-        PresentationUtils.render_button('2', input_2_callback)
-        PresentationUtils.render_button('3', input_3_callback)
+        PresentationUtils.render_button('1', lambda _: input_callback('1'))
+        PresentationUtils.render_button('2', lambda _: input_callback('2'))
+        PresentationUtils.render_button('3', lambda _: input_callback('3'))
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('4', input_4_callback)
-        PresentationUtils.render_button('5', input_5_callback)
-        PresentationUtils.render_button('6', input_6_callback)
+        PresentationUtils.render_button('4', lambda _: input_callback('4'))
+        PresentationUtils.render_button('5', lambda _: input_callback('5'))
+        PresentationUtils.render_button('6', lambda _: input_callback('6'))
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('7', input_7_callback)
-        PresentationUtils.render_button('8', input_8_callback)
-        PresentationUtils.render_button('9', input_9_callback)
+        PresentationUtils.render_button('7', lambda _: input_callback('7'))
+        PresentationUtils.render_button('8', lambda _: input_callback('8'))
+        PresentationUtils.render_button('9', lambda _: input_callback('9'))
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('0', input_0_callback)
+        PresentationUtils.render_button('0', lambda _: input_callback('0'))
         PresentationUtils.render_button('Abort', abort, width=90, height=60)

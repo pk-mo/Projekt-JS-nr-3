@@ -8,40 +8,15 @@ from ..Utils import CoinUtils, PresentationUtils
 
 
 def input_callback(coin: Coin):
+    """Callback handling insertion of coin into the machine."""
     transaction = get_transaction()
     transaction.insert_coin(coin)
     Messages.add_inserted_coins_message(f'Inserted money: {transaction.get_inserted_money_amount() / 100}zl')
     SelectProduct.buy()
 
 
-def input_500_callback(): input_callback(Coin(500))
-
-
-def input_200_callback(): input_callback(Coin(200))
-
-
-def input_100_callback(): input_callback(Coin(100))
-
-
-def input_50_callback(): input_callback(Coin(50))
-
-
-def input_20_callback(): input_callback(Coin(20))
-
-
-def input_10_callback(): input_callback(Coin(10))
-
-
-def input_5_callback(): input_callback(Coin(5))
-
-
-def input_2_callback(): input_callback(Coin(2))
-
-
-def input_1_callback(): input_callback(Coin(1))
-
-
 def withdraw():
+    """Withdraws coins inserted into the machine."""
     Messages.reset_withdrawn_coins_message()
     Messages.reset_inserted_coins_message()
     transaction = get_transaction()
@@ -51,6 +26,7 @@ def withdraw():
 
 
 def return_change(change: [Coin]):
+    """Returns the change after product purchase."""
     Messages.reset_inserted_coins_message()
     if change:
         Messages.add_withdrawn_coins_message(f'Returned change: {CoinUtils.coins_to_string(change)}')
@@ -59,6 +35,7 @@ def return_change(change: [Coin]):
 
 
 def render():
+    """Renders interface of inserting coins"""
     with dpg.window(label="Insert coins", width=500, height=500, pos=[500, 0], no_move=True, no_collapse=True,
                     no_close=True, no_resize=True):
         Messages.render_coins_messages()
@@ -67,15 +44,16 @@ def render():
 
 
 def __render_coins_input():
+    """Renders input buttons for every possible coin."""
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('5zl', input_500_callback)
-        PresentationUtils.render_button('2zl', input_200_callback)
-        PresentationUtils.render_button('1zl', input_100_callback)
+        PresentationUtils.render_button('5zl', lambda _: input_callback(Coin(500)))
+        PresentationUtils.render_button('2zl', lambda _: input_callback(Coin(200)))
+        PresentationUtils.render_button('1zl', lambda _: input_callback(Coin(100)))
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('50gr', input_50_callback)
-        PresentationUtils.render_button('20gr', input_20_callback)
-        PresentationUtils.render_button('10gr', input_10_callback)
+        PresentationUtils.render_button('50gr', lambda _: input_callback(Coin(50)))
+        PresentationUtils.render_button('20gr', lambda _: input_callback(Coin(20)))
+        PresentationUtils.render_button('10gr', lambda _: input_callback(Coin(10)))
     with dpg.group(horizontal=True, horizontal_spacing=10):
-        PresentationUtils.render_button('5gr', input_5_callback)
-        PresentationUtils.render_button('2gr', input_2_callback)
-        PresentationUtils.render_button('1gr', input_1_callback)
+        PresentationUtils.render_button('5gr', lambda _: input_callback(Coin(5)))
+        PresentationUtils.render_button('2gr', lambda _: input_callback(Coin(2)))
+        PresentationUtils.render_button('1gr', lambda _: input_callback(Coin(1)))

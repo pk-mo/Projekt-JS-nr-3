@@ -3,6 +3,7 @@ from ..Exception import InvalidCoinValueException, NotEnoughCoinsToWithdrawExcep
 
 
 def give_change(coins_source: [Coin.Coin], coin_types: [int], amount_of_change: int) -> [Coin.Coin]:
+    """Calculates the coins needed to return change and returns them."""
     coins_to_withdraw = []
     for coin_type in coin_types:
         while amount_of_change >= coin_type:
@@ -17,6 +18,7 @@ def give_change(coins_source: [Coin.Coin], coin_types: [int], amount_of_change: 
 
 
 def __get_coin_of_type(coins_source: [Coin.Coin], coin_type: int) -> Coin:
+    """Gets the coin of specified type."""
     if coin_type not in Coin.get_valid_coin_values():
         raise InvalidCoinValueException()
     if len(coins_source[coin_type]) < 1:
@@ -25,6 +27,7 @@ def __get_coin_of_type(coins_source: [Coin.Coin], coin_type: int) -> Coin:
 
 
 def coins_to_string(coins: [Coin]) -> str:
+    """Serializes the list of coins to string."""
     text = ''
     for coin in coins:
         if len(text) > 0:

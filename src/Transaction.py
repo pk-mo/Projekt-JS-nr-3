@@ -21,6 +21,7 @@ class Transaction:
         return sum(coin.get_value() for coin in self.inserted_coins)
 
     def withdraw_inserted_coins(self) -> [Coin.Coin]:
+        """Withdraws the coins inserted for purchase."""
         coins_to_withdraw = self.inserted_coins
         self.inserted_coins = []
         return coins_to_withdraw
@@ -36,6 +37,7 @@ class Transaction:
         return self.selected_item
 
     def buy(self) -> [Coin.Coin]:
+        """Handles the purchase of selected product with inserted coins."""
         selected_item_price = self.item_storage.prices[self.get_selected_item_id()]
         selected_item_amount = self.item_storage.get_items_amount(self.get_selected_item_id())
         if self.get_inserted_money_amount() < selected_item_price:
