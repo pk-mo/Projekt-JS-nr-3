@@ -1,9 +1,8 @@
-from src.Presentation import SelectProduct
 from tests.TestCase import TestCase
 from tests.Utils import *
 
 
-class TestCheckItemPrice(TestCase):
+class TestCheckProductPrice(TestCase):
     def test(self):
         with gui_mock() as gui:
             SelectProduct.input_callback("3")

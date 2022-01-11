@@ -1,9 +1,8 @@
-from src.Presentation import SelectProduct
 from tests.TestCase import TestCase
 from tests.Utils import *
 
 
-class TestCheckProductPrice(TestCase):
+class TestCheckInvalidProductIds(TestCase):
     def test_too_high_id(self):
         with gui_mock() as gui:
             SelectProduct.input_callback("29")
