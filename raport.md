@@ -187,3 +187,37 @@ kwoty. Oczekuje braku reszty i zakupu produktu.
 Test polegający na zakupie towaru jedynie przy pomocy monety 1gr jest zawarty m.in. w
 teście [TestInsertEqualAmountOfMoney](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/tests/Functional/TestInsertEqualAmountOfMoney.py#L6)
 — zakup towarów w testach jest dokonywany, wrzucając określoną ilość razy monetę 1gr.
+
+___
+
+## Istotne fragmenty kodu
+
+### Wyrażenia lambda
+
+1. [Link 1](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Presentation/InsertCoins.py#L49)
+2. [Link 2](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Presentation/SelectProduct.py#L80)
+3. [Link 3](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Presentation/SelectProduct.py#L84)
+
+### List/dictionary comprehensions
+
+1. [Link 1](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Entity/CoinStorage.py#L16)
+2. [Link 2](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Entity/ItemStorage.py#L13)
+3. [Link 3](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Entity/ItemStorage.py#L17)
+
+### Klasy
+
+1. [Link 1](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Entity/Coin.py)
+2. [Link 2](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Entity/CoinStorage.py)
+3. [Link 3](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Entity/ItemStorage.py)
+
+### Wyjątki
+
+1. [Link 1](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Exception/InvalidCoinValueException.py#L1)
+2. [Link 2](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Exception/InvalidItemIdException.py#L1)
+3. [Link 3](https://github.com/pk-mo/Projekt-JS-nr-3/blob/master/src/Exception/NoItemInTheMachineException.py#L1)
+
+### Moduły
+
+1. [Link 1](https://github.com/pk-mo/Projekt-JS-nr-3/tree/master/src/Entity)
+2. [Link 2](https://github.com/pk-mo/Projekt-JS-nr-3/tree/master/src/Exception)
+3. [Link 3](https://github.com/pk-mo/Projekt-JS-nr-3/tree/master/src/Presentation)
